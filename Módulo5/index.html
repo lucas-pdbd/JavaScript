@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Contagem Regressiva</title>
+</head>
+<body>
+
+  <h2 id="timer"></h2>
+
+  <script>
+    const dataFutura = new Date("2026-12-31T23:59:59");
+
+    let intervalId;
+
+    function calcularTempoRestante(dataFutura) {
+      const agora = new Date();
+      const diferenca = dataFutura - agora;
+
+      if (diferenca <= 0) {
+        return null;
+      }
+
+      const segundosTotais = Math.floor(diferenca / 1000);
+      const dias = Math.floor(segundosTotais / (60 * 60 * 24));
+      const horas = Math.floor((segundosTotais % (60 * 60 * 24)) / (60 * 60));
+      const minutos = Math.floor((segundosTotais % (60 * 60)) / 60);
+      const segundos = segundosTotais % 60;
+
+      return { dias, horas, minutos, segundos };
+    }
+
+    function atualizarTemporizador() {
+      const tempo = calcularTempoRestante(dataFutura);
+
+      if (!tempo) {
+        document.getElementById("timer").textContent = "Tempo esgotado!";
+        clearInterval(intervalId);
+        return;
+      }
+
+      document.getElementById("timer").textContent =
+        `${tempo.dias}d ${tempo.horas}h ${tempo.minutos}m ${tempo.segundos}s`;
+    }
+
+    // 3. Atualiza a cada segundo
+    intervalId = setInterval(atualizarTemporizador, 1000);
+
+    atualizarTemporizador();
+  </script>
+
+</body>
+</html>
