@@ -1,0 +1,8 @@
+.tarefa {
+  margin: 5px 0;
+}
+
+.concluida {
+  text-decoration: line-through;
+  color: gray;
+}
